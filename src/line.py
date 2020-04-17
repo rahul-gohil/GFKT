@@ -1,7 +1,7 @@
 import math
 import sys
 
-from point import Point, points
+from point import points
 
 epsilon = sys.float_info.epsilon
 lines = []
@@ -24,10 +24,9 @@ class Line:
         denominator = self.point2.x - self.point1.x
         if not denominator:
             return None
-        elif not numerator:
+        if not numerator:
             return 0
-        else:
-            return numerator / denominator
+        return numerator / denominator
     
     def calcConst(self):
         '''
@@ -35,8 +34,7 @@ class Line:
         '''
         if self.slope is None:
             return self.point1.x
-        else:
-            return self.point1.y - self.slope * self.point1.x
+        return self.point1.y - self.slope * self.point1.x
     
     def __init__(self, point1, point2):
         self.point1 = point1
