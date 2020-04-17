@@ -45,17 +45,16 @@ class Line:
     def satisfy(self, point):
         if self.slope is None:
             return self.constant - point.x
-        elif self.slope == 0:
+        if self.slope == 0:
             return self.constant - point.y
-        else:
-            factor = point.y - self.slope * point.x - self.constant
-            if factor < epsilon or factor > 1 / epsilon:
-                '''
-                factor tends to zero, and then tends to -inf or +inf
-                due to floating point precision error
-                '''
-                return 0
-            return factor
+        factor = point.y - self.slope * point.x - self.constant
+        if factor < epsilon or factor > 1 / epsilon:
+            '''
+            factor tends to zero, and then tends to -inf or +inf
+            due to floating point precision error
+            '''
+            return 0
+        return factor
         
     def angle(self, line):
         assert self.slope != line.slope, 'Both Lines are Parallel. Cannot Calculate Angle'

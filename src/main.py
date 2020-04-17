@@ -1,6 +1,6 @@
 import solver
 
-from logSpiral import *
+from logSpiral import limitizeLogSpiral
 from triangle  import *
 from point     import *
 from line      import *
@@ -8,7 +8,7 @@ from line      import *
 f = solver.f
 
 x1, y1, solver.f0, solver.f1 = map(float, input("Enter x1, y1, f(0) & f(1)\t").split())
-n =  int(input("Enter the number of points\t"))
+n = int(input("Enter the number of points\t"))
 
 assert x1 < f(0), "f(0) has to be greater than x1"
 assert y1 < f(1), "f(1) has to be greater than y1"
