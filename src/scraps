@@ -1,0 +1,72 @@
+I0 = Point(x1, y1)
+I1 = Point(f0 + x1, y1)
+
+points = [Point(f(0) + x1, f(1) + y1)]
+for i in range(1, 10 ** 3 + 1):
+    m = i % 4
+    if m == 1:
+        p = Point(points[i - 1].x - f(i + 1), points[i - 1].y)
+    elif m == 2:
+        p = Point(points[i - 1].x, points[i - 1].y - f(i + 1))
+    elif m == 3:
+        p = Point(points[i - 1].x + f(i + 1), points[i - 1].y)
+    else:
+        p = Point(points[i - 1].x, points[i - 1].y + f(i + 1))
+    points.append(p)
+
+lines = [Line(I0, points[0]), Line(I1, points[1])]
+
+for i in range(2, 10 ** 3 - 1):
+    lines.append(Line(lines[i - 2].point2, points[i]))
+
+'''
+Satisfy P(n + 2) to L(n) -> Satisfaction Factor (Should Tend to Zero)
+Get Angle between L(n) & L(n + 1) -> Angle Factor (Should Tend to 90)
+'''
+a, k = 2.7035313682488784, 0.1531744812822890
+p = (1 + math.sqrt(5)) / 2
+'''print(math.log(math.sqrt(p)))
+print(math.atan(-1 * math.sqrt(p - 1)), math.atan(math.sqrt(p)))
+print(math.atan(-1 * math.sqrt(p - 1)) - math.atan(math.sqrt(p)) + pi)
+print(math.log(math.sqrt(p)) / (math.atan(-1 * math.sqrt(p - 1)) - math.atan(math.sqrt(p)) + pi))
+print(a * p ** pi)'''
+x = pow(p, -1 * math.atan(math.sqrt(p)) / pi)
+y = (p * pow(f(1), 2) + pow(f(0), 2)) * (1 + p)
+z = pow(p, 3) * math.sqrt(5)
+print(math.sqrt(y / z) * x)
+for i in range(2, 500):
+    '''satisfactionFactor = lines[i].satisfy(points[i + 2])
+    angleFactor = lines[i].angle(lines[i + 1])
+    print('Iteration', i)
+    print('SF : ', satisfactionFactor)
+    print('AF : ', angleFactor)
+    #lines[i].debug()
+    #points[i + 2].debug()
+    if satisfactionFactor == 0 and angleFactor == 90:
+        print(
+            'Converged at Satisfaction Factor',
+            satisfactionFactor,
+            'and Angle Factor',
+            angleFactor,
+            'in Iteration', i
+        )'''
+    r1 = points[i].distance(I3)
+    r2 = points[i + 1].distance(I3)
+    theta1 = angle(i, Line(I3, points[i]).slope)
+    theta2 = angle(i + 1, Line(I3, points[i + 1]).slope)
+    k = math.log(r1 / r2) / (theta1 - theta2)
+    a = r1 / ((r1 / r2) ** (theta1 / (theta1 - theta2)))
+    print(a, k)
+    '''theta = angle(i, Line(I0, points[i]).slope)
+    r = a * math.exp(k * theta)
+    x, px = points[i].x, r * math.cos(theta)
+    y, py = points[i].y, r * math.sin(theta)
+    print(px - x, py - y)'''
+    if i % 4 == 0:
+        print(points[i].x / f(i - 2))
+    '''if i % 4 == 0:
+        print('x / y', points[i].x / points[i].y, (points[i].x - f(i + 2)) / points[i].y)
+        print('y / x', points[i].y / points[i].x, points[i].y / (points[i].x - f(i + 2)))
+        print(f(i + 1) / (f(i) - f(i + 2)), f(i + 1) / f(i))'''
+    
+
