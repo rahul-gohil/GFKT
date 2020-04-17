@@ -1,7 +1,7 @@
-from Point import *
-
 import math
 import sys
+
+from point import Point, points
 
 epsilon = sys.float_info.epsilon
 lines = []
@@ -13,8 +13,6 @@ class Line:
     m = slope
     c = constant
     '''
-    
-    count = 0
     
     def calcSlope(self):
         '''
@@ -45,7 +43,6 @@ class Line:
         self.point2 = point2
         self.slope = self.calcSlope()
         self.constant = self.calcConst()
-        Line.count += 1
         
     def satisfy(self, point):
         if self.slope is None:

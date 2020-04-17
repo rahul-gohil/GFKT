@@ -1,17 +1,14 @@
-from Point import *
-from Line  import *
+from point import points
+from line  import Line, lines
 
 triangles = []
 
 class Triangle:
     
-    count = 0
-    
     def __init__(self, line1, line2, line3):
         self.line1 = line1
         self.line2 = line2
         self.line3 = line3
-        Triangle.count += 1
         
 def makeTriangles(n):
     for i in range(1, n):

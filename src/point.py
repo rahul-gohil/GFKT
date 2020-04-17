@@ -1,17 +1,15 @@
-from Solver import *
-
 import math
+
+from solver import f
 
 points = []
 
 class Point:
 
-    count = 0
     
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        Point.count += 1
         
     def distance(self, point):
         return math.sqrt(

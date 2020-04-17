@@ -1,13 +1,13 @@
-from LogSpiral import *
-from Triangle  import *
-from Point     import *
-from Line      import *
+import solver
 
-import Solver
+from logSpiral import *
+from triangle  import *
+from point     import *
+from line      import *
 
-f = Solver.f
+f = solver.f
 
-x1, y1, Solver.f0, Solver.f1 = map(float, input("Enter x1, y1, f(0) & f(1)\t").split())
+x1, y1, solver.f0, solver.f1 = map(float, input("Enter x1, y1, f(0) & f(1)\t").split())
 n =  int(input("Enter the number of points\t"))
 
 assert x1 < f(0), "f(0) has to be greater than x1"
