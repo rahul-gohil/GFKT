@@ -27,8 +27,7 @@ def matrixExpo(power):
 def f(n):
     if n == 0:
         return f0
-    elif n == 1:
+    if n == 1:
         return f1
-    else:
-        return matrixExpo(n - 1)   
+    return matrixExpo(n - 1)   
 
