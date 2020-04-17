@@ -1,9 +1,10 @@
 import math
 import sys
 
-from solver import f
 from shapes.point  import points
 from shapes.line   import Line
+from solver        import f
+
 
 epsilon = sys.float_info.epsilon
 pi = math.pi
