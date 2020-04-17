@@ -1,5 +1,5 @@
-from point import points
-from line  import Line, lines
+from shapes.point import points
+from shapes.line  import Line, lines
 
 triangles = []
 

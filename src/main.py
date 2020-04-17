@@ -1,9 +1,9 @@
 import solver
 
-from logSpiral import limitizeLogSpiral
-from triangle  import *
-from point     import *
-from line      import *
+from shapes.logSpiral import limitizeLogSpiral
+from shapes.triangle  import *
+from shapes.point     import *
+from shapes.line      import *
 
 f = solver.f
 
