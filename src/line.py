@@ -1,7 +1,7 @@
 import math
 import sys
 
-from point import points
+from point import *
 
 epsilon = sys.float_info.epsilon
 lines = []
