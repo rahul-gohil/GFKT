@@ -1,11 +1,16 @@
+import matplotlib.pyplot as plt
+import numpy as np
 import solver
+import math
 
-from shapes.logSpiral import limitizeLogSpiral
+from shapes.logSpiral import *
 from shapes.triangle  import *
 from shapes.point     import *
 from shapes.line      import *
+from plotter          import plot
 
 f = solver.f
+pi = math.pi
 
 x1, y1, solver.f0, solver.f1 = map(float, input("Enter x1, y1, f(0) & f(1)\t").split())
 n = int(input("Enter the number of points\t"))
@@ -31,3 +36,4 @@ limitizeLine()
 limitizeTriangle()
 limitizeLogSpiral(I0, n)
 
+plot(17, [I0, I1])
