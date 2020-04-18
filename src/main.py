@@ -1,5 +1,4 @@
 import solver
-import math
 
 from shapes.logSpiral import *
 from shapes.triangle  import *
@@ -8,7 +7,6 @@ from shapes.line      import *
 from plotter          import plot
 
 f = solver.f
-pi = math.pi
 
 x1, y1, solver.f0, solver.f1 = map(
     float,
