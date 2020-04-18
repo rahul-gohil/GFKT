@@ -1,10 +1,11 @@
 import solver
 
-from shapes.logSpiral import *
-from shapes.triangle  import *
-from shapes.point     import *
-from shapes.line      import *
-from plotter          import plot
+from plotUtils.plotter import plot
+from shapes.logSpiral  import *
+from shapes.triangle   import *
+from shapes.point      import *
+from shapes.line       import *
+
 
 f = solver.f
 
