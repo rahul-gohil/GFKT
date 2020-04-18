@@ -2,7 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 from shapes.logSpiral import Spiral
-from shapes.triangle  import triangles
 from shapes.point     import points
 from shapes.line      import lines
 
