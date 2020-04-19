@@ -1,11 +1,13 @@
 import solver
+import sys
 
-from plotUtils.plotter import plot
-from shapes.logSpiral  import *
-from shapes.triangle   import *
-from shapes.point      import *
-from shapes.line       import *
+from matplotlibUtils.plotter import plot
+from csvUtils.writer         import writeToCsv
 
+from shapes.logSpiral import *
+from shapes.triangle  import *
+from shapes.point     import *
+from shapes.line      import *
 
 f = solver.f
 
@@ -37,3 +39,5 @@ limitizeTriangle()
 limitizeLogSpiral(I0, n)
 
 plot(17, [I0, I1])
+
+writeToCsv(points, lines, triangles, Spiral())

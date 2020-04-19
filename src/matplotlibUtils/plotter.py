@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from plotUtils.functions import *
+from matplotlibUtils.functions import *
 from shapes.logSpiral    import Spiral
 from shapes.point        import points
 from shapes.line         import lines

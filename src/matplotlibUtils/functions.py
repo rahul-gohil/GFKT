@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-from plotUtils.zoomFactory import zoom_factory
+from matplotlibUtils.zoomFactory import zoomFactory
 
 def plotAxes(x, y):
     ax = plt.figure().add_subplot(1, 1, 1)
@@ -16,7 +16,7 @@ def plotAxes(x, y):
 
     ax.xaxis.set_ticks_position('bottom')
     ax.yaxis.set_ticks_position('left')
-    zoom_factory(ax, base_scale = 1.2)
+    zoomFactory(ax, base_scale = 1.2)
 
 def plotLinePrime(n, X, Y):
     for i in range(n + 1):
@@ -30,7 +30,7 @@ def plotLine(n, lines):
 
 def plotSpiral(n, spiral):
     lLim = -2 * np.pi
-    rLim = (n // 4) * 2 * np.pi + (n % 4) * np.pi
+    rLim = ((n // 4) * 2 + (n % 4)) * np.pi
     theta = np.arange(lLim, rLim, 0.1)
     X = list(map(
         lambda x : spiral.a * pow(spiral.p, x / np.pi) * np.cos(x),
