@@ -1,0 +1,7 @@
+!../.gitignore
+__pycache__
+*.log
+*.aux
+*.dvi
+data
+partial_movie_files
