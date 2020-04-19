@@ -1,5 +1,6 @@
 import solver
 import sys
+import os
 
 from matplotlibUtils.plotter import plot
 from csvUtils.writer         import writeToCsv
@@ -9,6 +10,13 @@ from shapes.triangle  import *
 from shapes.point     import *
 from shapes.line      import *
 
+engine = 'mpl'
+if len(sys.argv) > 1:
+    if sys.argv[1] == '-manim':
+        engine = 'manim'
+    if sys.argv[1] != '-manim':
+        raise ValueError('Argument should be -manim')
+    
 f = solver.f
 
 x1, y1, solver.f0, solver.f1 = map(
@@ -39,6 +47,10 @@ limitizeLine()
 limitizeTriangle()
 limitizeLogSpiral(I0, n)
 
-plot(17, [I0, I1])
-
-writeToCsv([I0, I1] + points, lines, triangles, Spiral())
+if engine == 'mpl':
+    plot(17, [I0, I1])
+if engine == 'manim':
+    writeToCsv([I0, I1] + points, lines, triangles, Spiral())
+    os.system(
+        'manim ./manimUtils/allAnim.py Shapes -pl'
+    )

@@ -17,7 +17,7 @@ def read(fileName, n):
     return rows[:n]
 
 def readPoints(n):
-    rows = read('../data/Points.csv', n)
+    rows = read('./data/Points.csv', n)
     X = list(map(
         lambda row : row[0],
         rows
@@ -29,5 +29,5 @@ def readPoints(n):
     return(X, Y)
     
 def readSpiral():
-    rows = read('../data/LogSpiral.csv', 1)
+    rows = read('./data/LogSpiral.csv', 1)
     return rows[0][0], rows[0][1], rows[0][2]

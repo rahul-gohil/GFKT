@@ -2,7 +2,7 @@ import sys
 sys.path.append('..')
 
 from manimlib.imports import *
-from csvUtils.reader import *
+from src.csvUtils.reader import *
 
 class Shapes(GraphScene):
 
