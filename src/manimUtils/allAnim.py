@@ -5,8 +5,8 @@ from manimlib.imports import *
 from src.csvUtils.reader import *
 
 class Shapes(GraphScene):
-
-    X, Y = readPoints(13)
+    points = 13
+    X, Y = readPoints(points)
     _min = min(min(X), min(Y))
     _max = max(max(X), max(Y))
     CONFIG = {
@@ -28,18 +28,21 @@ class Shapes(GraphScene):
         ])
     
     def construct(self):
+        n = Shapes.points
         self.setup_axes(animate=True)
         a, k, p = readSpiral()
         self.play(ShowCreation(
             ParametricFunction(
-                lambda t : np.array([
-                    a * pow(p, t / np.pi) * np.cos(t),
-                    a * pow(p, t / np.pi) * np.sin(t),
-                    0
-                ]),
+                lambda t : self.coords_to_point(
+                    *np.array([
+                        a * pow(p, t / np.pi) * np.cos(t),
+                        a * pow(p, t / np.pi) * np.sin(t),
+                        0
+                    ])[:-1]
+                ),
                 color = RED,
-                t_min = -25,
-                t_max = 10
+                t_min = -4 * np.pi,
+                t_max = ((n // 4) * 2 + (n % 4)) * np.pi
             )
         ))
         for i, j in zip(Shapes.X, Shapes.Y):
