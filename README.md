@@ -30,7 +30,14 @@ Converged to Similarity between Triangles in Iteration 40
 Converged at "a" 2.7035313755677604 and "k" 0.15317448126501637 in Iteration 141
 ```
 If you want a plot, the program will ask you for the number of points to plot.
-### Using `-manim`
+### Poltting with `matplotlib`
+It will generate a standard plot.
+
+You can use your mouse wheel to directly zoom in/out of the plot.
+
+
+![Mpl-plot](/img/Shapes-Mpl.gif)
+### Plotting with `manim`
 To get a `480p` video for the plot, just run the file as is, but to get a `1080p` video remove the `-pl` option in `main.py` file at the bottom.
 
 It will generate a video similar to this gif.
@@ -39,4 +46,4 @@ It will generate a video similar to this gif.
 ![Manim-plot](/img/Shapes-Manim.gif)
 
 ## Acknowledgements
-[tacaswell](https://gist.github.com/tacaswell/3144287) for `zoomFactory.py` - adds zooming properties to matplotlib plot.
+[tacaswell](https://gist.github.com/tacaswell/3144287) for `zoomFactory.py` - adds zooming properties to matplotlib plots.
