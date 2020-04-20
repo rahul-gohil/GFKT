@@ -14,8 +14,10 @@ engine = 'mpl'
 if len(sys.argv) > 1:
     if sys.argv[1] == '-manim':
         engine = 'manim'
-    if sys.argv[1] != '-manim':
-        raise ValueError('Argument should be -manim')
+    elif sys.argv[1] == '-noplot':
+        engine = None
+    else:
+        raise ValueError('Argument should be -manim or -noplot')
     
 f = solver.f
 
@@ -24,6 +26,8 @@ x1, y1, solver.f0, solver.f1 = map(
     input("Enter x1, y1, f(0) & f(1)\t").split()
 )
 n = int(input("Enter the number of points\t"))
+if engine is not None:
+    n1 = int(input("Enter the number of points to plot\t"))
 
 assert x1 < f(0),   "f(0) has to be greater than x1"
 assert y1 < f(1),   "f(1) has to be greater than y1"
@@ -47,10 +51,11 @@ limitizeLine()
 limitizeTriangle()
 limitizeLogSpiral(I0, n)
 
-if engine == 'mpl':
-    plot(17, [I0, I1])
-if engine == 'manim':
-    writeToCsv([I0, I1] + points, lines, triangles, Spiral())
-    os.system(
-        'manim ./manimUtils/allAnim.py Shapes -pl'
-    )
+if engine is not None:
+    if engine == 'mpl':
+        plot(n1, [I0, I1])
+    if engine == 'manim':
+        writeToCsv([I0, I1] + points, lines, triangles, Spiral())
+        os.system(
+            f'manim ./manimUtils/allAnim.py {n1} Shapes -pl'
+        )

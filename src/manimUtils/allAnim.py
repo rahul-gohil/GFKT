@@ -5,7 +5,8 @@ from manimlib.imports import *
 from src.csvUtils.reader import *
 
 class Shapes(GraphScene):
-    points = 13
+
+    points = int(sys.argv[2])
     X, Y = readPoints(points)
     _min = min(min(X), min(Y))
     _max = max(max(X), max(Y))
@@ -31,6 +32,25 @@ class Shapes(GraphScene):
         n = Shapes.points
         self.setup_axes(animate=True)
         a, k, p = readSpiral()
+        for i, j in zip(Shapes.X, Shapes.Y):
+            self.add(
+                Dot(self.coords_to_point(
+                    i, j
+                ))
+            )
+            self.wait(0.75)
+        self.play(ShowCreation(
+            self.connectPoints(Shapes.X, Shapes.Y),
+            run_time = 4
+        ))
+        self.play(ShowCreation(
+            self.connectPoints(Shapes.X[::2], Shapes.Y[::2]),
+            run_time = 2
+        ))
+        self.play(ShowCreation(
+            self.connectPoints(Shapes.X[1::2], Shapes.Y[1::2]),
+            run_time = 2
+        ))
         self.play(ShowCreation(
             ParametricFunction(
                 lambda t : self.coords_to_point(
@@ -43,23 +63,8 @@ class Shapes(GraphScene):
                 color = RED,
                 t_min = -4 * np.pi,
                 t_max = ((n // 4) * 2 + (n % 4)) * np.pi
-            )
-        ))
-        for i, j in zip(Shapes.X, Shapes.Y):
-            self.add(
-                Dot(self.coords_to_point(
-                    i, j
-                ))
-            )
-            self.wait()
-        self.play(ShowCreation(
-            self.connectPoints(Shapes.X, Shapes.Y)
-        ))
-        self.play(ShowCreation(
-            self.connectPoints(Shapes.X[::2], Shapes.Y[::2])
-        ))
-        self.play(ShowCreation(
-            self.connectPoints(Shapes.X[1::2], Shapes.Y[1::2])
+            ),
+            run_time = 6
         ))
         self.wait(5)
         
