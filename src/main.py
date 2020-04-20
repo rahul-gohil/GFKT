@@ -53,7 +53,7 @@ limitizeLogSpiral(I0, n)
 
 if engine is not None:
     if engine == 'mpl':
-        plot(n1, [I0, I1])
+        plot(n1 - 2, [I0, I1])
     if engine == 'manim':
         writeToCsv([I0, I1] + points, lines, triangles, Spiral())
         os.system(
