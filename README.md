@@ -34,7 +34,9 @@ If you want a plot, the program will ask you for the number of points to plot.
 To get a `480p` video for the plot, just run the file as is, but to get a `1080p` video remove the `-pl` option in `main.py` file at the bottom.
 
 It will generate a video similar to this gif.
-![Manim](/img/Shapes-Manim.gif)
+
+
+![Manim-plot](/img/Shapes-Manim.gif)
 
 ## Acknowledgements
 [tacaswell](https://gist.github.com/tacaswell/3144287) for `zoomFactory.py` - adds zooming properties to matplotlib plot.
