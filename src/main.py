@@ -51,6 +51,10 @@ limitizeLine()
 limitizeTriangle()
 limitizeLogSpiral(I0, n)
 
+I0.x, I0.y = 0, 0
+I1.x, I1.y = f(0), 0
+shiftPoints(x1, y1)
+
 if engine is not None:
     if engine == 'mpl':
         plot(n1 - 2, [I0, I1])

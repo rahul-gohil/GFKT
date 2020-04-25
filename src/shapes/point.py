@@ -34,3 +34,9 @@ def makePoints(n):
         else:
             p = Point(points[i - 1].x, points[i - 1].y + f(i + 1))
         points.append(p)
+        
+def shiftPoints(x1, y1):
+    for i in range(len(points)):
+        points[i].x = points[i].x - x1
+        points[i].y = points[i].y - y1
+        
