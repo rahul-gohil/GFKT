@@ -8,7 +8,10 @@ listifyP = lambda points : list(map(
 ))
 
 listifyL = lambda lines : list(map(
-    lambda line : listifyP([line.point1, line.point2]),
+    lambda line : listifyP([
+        line.point1,
+        line.point2
+    ]),
     lines
 ))
 
@@ -35,19 +38,19 @@ def writeLines(lines, fields):
     
 def writeTriangles(triangles, fields):
     rows = list(map(
-        lambda triangle : listifyL(
-            [triangle.line1,
-             triangle.line2,
-             triangle.line3]
-        ),
+        lambda triangle : listifyL([
+            triangle.line1,
+            triangle.line2,
+            triangle.line3
+        ]),
         triangles
     ))
     write('Triangles.csv', fields, rows)
     
 def writeLogSpiral(spiral, fields):
-    rows = [
-        [spiral.a,
-         spiral.k,
-         spiral.p]
-    ]
+    rows = [[
+        spiral.a,
+        spiral.k,
+        spiral.p
+    ]]
     write('LogSpiral.csv', fields, rows)
