@@ -23,10 +23,12 @@ class Shapes(GraphScene):
     }
     
     def connectPoints(self, X, Y):
-        return VMobject().set_points_as_corners([
-            *[self.coords_to_point(x, y)
-            for x, y in zip(X, Y)]
-        ])
+        return VMobject().set_points_as_corners(
+            list(map(
+                lambda x, y : self.coords_to_point(x, y),
+                X, Y
+            ))
+        )
     
     def construct(self):
         n = Shapes.points
