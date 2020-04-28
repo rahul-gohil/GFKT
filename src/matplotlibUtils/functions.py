@@ -29,9 +29,11 @@ def plotLine(n, lines):
         plt.plot(X, Y, 'ro-')
 
 def plotSpiral(n, spiral):
-    lLim = -2 * np.pi
-    rLim = ((n // 4) * 2 + (n % 4)) * np.pi
-    theta = np.arange(lLim, rLim, 0.1)
+    theta = np.arange(
+        -4 * np.pi,
+        ((n // 4) * 2 + (n % 4)) * np.pi,
+        0.01
+    )
     X = list(map(
         lambda x : spiral.a * pow(spiral.p, x / np.pi) * np.cos(x),
         theta

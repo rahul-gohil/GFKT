@@ -1,7 +1,5 @@
 import csv
 
-from os import path, mkdir
-
 listifyP = lambda points : list(map(
     lambda point : [point.x, point.y],
     points
@@ -16,13 +14,6 @@ listifyL = lambda lines : list(map(
 ))
 
 def write(fileName, fields, rows):
-    try:
-        mkdir(path.join(
-            path.abspath('.'),
-            'data'
-        ))
-    except:
-        pass
     with open('./data/' + fileName, 'w') as _file:
         csvWriter = csv.writer(_file)
         csvWriter.writerow(fields)
