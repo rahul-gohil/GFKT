@@ -43,7 +43,11 @@ lines.append(Line(I0, points[0]))
 lines.append(Line(I1, points[1]))
 makeLines(n + 1)
 
-T0 = Triangle(Line(I0, I1), Line(I1, points[0]), lines[0])
+T0 = Triangle(
+    Line(I0, I1),
+    Line(I1, points[0]),
+    lines[0]
+)
 triangles.append(T0)
 makeTriangles(n + 1)
 
@@ -59,7 +63,12 @@ if engine is not None:
     if engine == 'mpl':
         plot(n1 - 2, [I0, I1])
     if engine == 'manim':
-        writeToCsv([I0, I1] + points, lines, triangles, Spiral())
+        writeToCsv(
+            [I0, I1] + points,
+            lines,
+            triangles,
+            Spiral()
+        )
         os.system(
-            f'manim ./manimUtils/allAnim.py {n1} Shapes -pl'
+            f'manim ./manimUtils/allAnim.py {n1} Shapes1 Shapes2 -pl'
         )
