@@ -1,7 +1,5 @@
 '''https://gist.github.com/tacaswell/3144287'''
 
-import matplotlib.pyplot as plt
-
 def zoomFactory(ax, base_scale = 2.):
     
     def zoomFun(event):

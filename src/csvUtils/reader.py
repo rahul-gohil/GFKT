@@ -4,7 +4,7 @@ def read(fileName, n):
     rows = []
     with open(fileName, 'r') as _file:
         csvReader = csv.reader(_file)
-        fields = next(csvReader)
+        next(csvReader)
         for row in csvReader:
             rows.append(row)
     rows = list(map(

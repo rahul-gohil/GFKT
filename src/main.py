@@ -70,5 +70,5 @@ if engine is not None:
             Spiral()
         )
         os.system(
-            f'manim ./manimUtils/allAnim.py {n1} Shapes'
+            f'manim ./manimUtils/allAnim.py {n1} Shapes -pl'
         )

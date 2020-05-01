@@ -8,7 +8,7 @@ def writeToCsv(points, lines, triangles, spiral):
             path.abspath('.'),
             'data'
         ))
-    except:
+    except OSError:
         pass
     writePoints(
         points,

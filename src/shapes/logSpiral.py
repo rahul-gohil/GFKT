@@ -20,9 +20,9 @@ def angle(n, slope):
     m = (n // 4) * 2 * pi
     if n % 4 == 0:
         return m + s
-    elif n % 4 == 1 or n % 4 == 2:
+    if n % 4 == 1 or n % 4 == 2:
         return m + pi + s
-    else:
+    if:
         return m + 2 * pi + s
 
 class Spiral:
