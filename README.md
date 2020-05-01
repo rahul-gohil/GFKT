@@ -1,5 +1,8 @@
 # GFKT
 GFKT is a visualizer for how we can generate [Kepler Triangles](https://en.wikipedia.org/wiki/Kepler_triangle) and through their special arrangement we can obtain these [Logarithmic Spirals](https://en.wikipedia.org/wiki/Logarithmic_spiral).
+
+
+[![DOI](https://zenodo.org/badge/256438420.svg)](https://zenodo.org/badge/latestdoi/256438420)
 ## Getting Started
 To start visualizing these plots on your system, follow these steps.
 
