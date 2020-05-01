@@ -7,9 +7,13 @@ from manimlib.imports    import *
 n = int(sys.argv[2])
 X, Y = readPoints(n)
 a, k, p = readSpiral()
+
 _min = min(min(X), min(Y))
 _max = max(max(X), max(Y))
-CONFIG = {
+    
+class Shapes(GraphScene):
+
+    CONFIG = {
         "x_min": 1.2 * _min,
         "x_max": 1.2 * _max,
         "y_min": 1.2 * _min,
@@ -21,97 +25,82 @@ CONFIG = {
         "axes_color": BLUE,
     }
     
-def parametricFunction(Object):
-
-    return ParametricFunction(
-                lambda t : Object.coords_to_point(
-                    *np.array([
-                        a * pow(p, t / np.pi) * np.cos(t),
-                        a * pow(p, t / np.pi) * np.sin(t),
-                        0
-                    ])[:-1]
-                ),
-                color = RED,
-                t_min = -4 * np.pi,
-                t_max = ((n // 4) * 2 + (n % 4)) * np.pi
+    def logSpiralSequence(self, create, fade):
+        self.play(
+            create,
+            run_time = 6
+        )
+        self.play(
+            fade,
+            run_time = 3
+        )
+    
+    def plotPoints(self):
+    
+        for i, j in zip(X, Y):
+            self.add(
+                Dot(self.coords_to_point(
+                    i, j
+                ))
             )
+            self.wait(0.75)
+    
+    def parametricFunction(self):
 
-def connectPoints(Object, X, Y):
+        return ParametricFunction(
+            lambda t : self.coords_to_point(
+                *np.array([
+                    a * pow(p, t / np.pi) * np.cos(t),
+                    a * pow(p, t / np.pi) * np.sin(t),
+                    0
+                ])[:-1]
+            ),
+            color = RED,
+            t_min = -4 * np.pi,
+            t_max = ((n // 4) * 2 + (n % 4)) * np.pi
+        )
 
-    return VMobject().set_points_as_corners(
+    
+    def connectPoints(self, X, Y):
+
+        return VMobject().set_points_as_corners(
             list(map(
-                lambda x, y : Object.coords_to_point(x, y),
+                lambda x, y : self.coords_to_point(x, y),
                 X, Y
             ))
         )
         
-def plotPoints(Object):
-    
-    for i, j in zip(X, Y):
-        Object.add(
-            Dot(Object.coords_to_point(
-                i, j
-            ))
+    def construct(self):
+
+        self.setup_axes(animate = True)
+        logSpiral = self.parametricFunction()
+        Create = ShowCreation(logSpiral)
+        Fade = FadeOut(logSpiral)
+        linePrime = self.connectPoints(X, Y)
+        line = [
+            self.connectPoints(X[::2], Y[::2]),
+            self.connectPoints(X[1::2], Y[1::2])
+        ]
+        
+        self.plotPoints()
+        
+        self.logSpiralSequence(Create, Fade)
+        self.play(ShowCreation(
+            linePrime,
+            run_time = 4
+        ))
+        self.logSpiralSequence(Create, Fade)
+        self.play(ShowCreation(
+            line[0],
+            run_time = 2
+        ))
+        self.play(ShowCreation(
+            line[1],
+            run_time = 2
+        ))
+        self.play(
+            Create,
+            run_time = 6
         )
-        Object.wait(0.75)
-    
-class Shapes1(GraphScene):
-
-    CONFIG = CONFIG
-    
-    def construct(self):
-        
-        self.setup_axes(animate=True)
-        plotPoints(self)
-        
-        self.play(ShowCreation(
-            connectPoints(self, X, Y),
-            run_time = 4
-        ))
-        self.play(ShowCreation(
-            connectPoints(self, X[::2], Y[::2]),
-            run_time = 2
-        ))
-        self.play(ShowCreation(
-            connectPoints(self, X[1::2], Y[1::2]),
-            run_time = 2
-        ))
-        self.play(ShowCreation(
-            parametricFunction(self),
-            run_time = 6
-        ))
         self.wait(5)
-        
-class Shapes2(GraphScene):
 
-    CONFIG = CONFIG
-    
-    def construct(self):
-        
-        self.setup_axes(animate=True)
-        plotPoints(self)
-
-        self.play(ShowCreation(
-            parametricFunction(self),
-            run_time = 6
-        ))
-        self.wait(5)
-        
-class Shapes3(GraphScene):
-
-    CONFIG = CONFIG
-    
-    def construct(self):
-        
-        self.setup_axes(animate=True)
-        plotPoints(self)
-            
-        self.play(ShowCreation(
-            connectPoints(self, X, Y),
-            run_time = 4
-        ))
-        self.play(ShowCreation(
-            parametricFunction(self),
-            run_time = 6
-        ))
-        self.wait(5)
