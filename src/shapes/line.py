@@ -108,7 +108,6 @@ def limitizeLine():
     Satisfy P(n + 2) to L(n) -> Satisfaction Factor (Should Tend to Zero)
     Get Angle between L(n) & L(n + 1) -> Angle Factor (Should Tend to 90)
     '''
-    lines[10].debug(10)
     for i in range(500):
         satisfactionFactor = lines[i].satisfy(points[i + 2])
         angleFactor = lines[i].angle(lines[i + 1])

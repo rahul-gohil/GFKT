@@ -8,9 +8,9 @@ n = int(sys.argv[2])
 X, Y = readPoints(n)
 a, k, p = readSpiral()
 
-_min = min(min(X), min(Y))
-_max = max(max(X), max(Y))
-    
+_min = min(*X, *Y)
+_max = max(*X, *Y)
+
 class Shapes(GraphScene):
 
     CONFIG = {
@@ -24,7 +24,7 @@ class Shapes(GraphScene):
         "function_color": WHITE,
         "axes_color": BLUE,
     }
-    
+
     def logSpiralSequence(self, create, fade):
         self.play(
             create,
@@ -34,9 +34,9 @@ class Shapes(GraphScene):
             fade,
             run_time = 3
         )
-    
+
     def plotPoints(self):
-    
+
         for i, j in zip(X, Y):
             self.add(
                 Dot(self.coords_to_point(
@@ -44,7 +44,7 @@ class Shapes(GraphScene):
                 ))
             )
             self.wait(0.75)
-    
+
     def parametricFunction(self):
 
         return ParametricFunction(
@@ -60,7 +60,7 @@ class Shapes(GraphScene):
             t_max = ((n // 4) * 2 + (n % 4)) * np.pi
         )
 
-    
+
     def connectPoints(self, X, Y):
 
         return VMobject().set_points_as_corners(
@@ -69,7 +69,7 @@ class Shapes(GraphScene):
                 X, Y
             ))
         )
-        
+
     def construct(self):
 
         self.setup_axes(animate = True)
@@ -81,9 +81,9 @@ class Shapes(GraphScene):
             self.connectPoints(X[::2], Y[::2]),
             self.connectPoints(X[1::2], Y[1::2])
         ]
-        
+
         self.plotPoints()
-        
+
         self.logSpiralSequence(Create, Fade)
         self.play(ShowCreation(
             linePrime,
@@ -103,4 +103,3 @@ class Shapes(GraphScene):
             run_time = 6
         )
         self.wait(5)
-
