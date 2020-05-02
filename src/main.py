@@ -25,14 +25,19 @@ x1, y1, solver.f0, solver.f1 = map(
     float,
     input("Enter x1, y1, f(0) & f(1)\t").split()
 )
-n = int(input("Enter the number of points\t"))
-if engine is not None:
-    n1 = int(input("Enter the number of points to plot\t"))
 
+assert 0 <= f(0),   "f(0) has to be positive"
+assert 0 <= f(1),   "f(1) has to be positive"
 assert x1 < f(0),   "f(0) has to be greater than x1"
 assert y1 < f(1),   "f(1) has to be greater than y1"
 assert f(0) < f(1), "f(1) has to be greater than f(0)"
+
+n = int(input("Enter the number of points\t"))
+
 assert n <= 1400,   "Too Large for computing f(n)"
+
+if engine is not None:
+    n1 = int(input("Enter the number of points to plot\t"))
 
 I0 = Point(x1, y1)
 I1 = Point(f(0) + x1, y1)

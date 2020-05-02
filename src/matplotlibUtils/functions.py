@@ -1,11 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import math
 
 from matplotlibUtils.zoomFactory import zoomFactory
-
+from solver import f
 def plotAxes(x, y):
     ax = plt.figure().add_subplot(1, 1, 1)
-    
+
     ax.spines['left'].set_position(('data', x))
     ax.spines['bottom'].set_position(('data', y))
     ax.spines['right'].set_position(('data', x - 1))
@@ -35,11 +36,17 @@ def plotSpiral(n, spiral):
         0.01
     )
     X = list(map(
-        lambda x : spiral.a * pow(spiral.p, x / np.pi) * np.cos(x),
+        lambda x :
+            spiral.a
+            * pow(spiral.p, x / np.pi)
+            * np.cos(x),
         theta
     ))
     Y = list(map(
-        lambda y : spiral.a * pow(spiral.p, y / np.pi) * np.sin(y),
+        lambda y :
+            spiral.a
+            * pow(spiral.p, y / np.pi)
+            * np.sin(y),
         theta
     ))
     plt.plot(X, Y)

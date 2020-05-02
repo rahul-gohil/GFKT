@@ -1,9 +1,10 @@
 import math
 import sys
 
-from shapes.point  import points
-from shapes.line   import Line
-from solver        import f
+from shapes.prettyPrint import prettify
+from shapes.point       import points
+from shapes.line        import Line
+from solver             import f
 
 
 epsilon = sys.float_info.epsilon
@@ -11,10 +12,10 @@ pi = math.pi
 
 def calc_a(p):
     x = pow(p, -1 * math.atan(math.sqrt(p)) / pi)
-    y = (p * pow(f(1), 2) + pow(f(0), 2)) * (1 + p)
-    z = pow(p, 3) * math.sqrt(5)
+    y = (p * pow(f(1), 2) + pow(f(0), 2))
+    z = p * math.sqrt(5)
     return math.sqrt(y / z) * x
-    
+
 def angle(n, slope):
     s = math.atan(slope)
     m = (n // 4) * 2 * pi
@@ -22,7 +23,7 @@ def angle(n, slope):
         return m + s
     if n % 4 == 1 or n % 4 == 2:
         return m + pi + s
-    if:
+    if n % 4 == 3:
         return m + 2 * pi + s
 
 class Spiral:
@@ -31,13 +32,13 @@ class Spiral:
     r = a * e^(k * theta), where a and k are constant
     Parametric form : x = rcos(theta), y = rsin(theta)
     '''
-    
+
     def __init__(self):
         self.p = (1 + math.sqrt(5)) / 2
         self.a = calc_a(self.p)
         self.k = math.log(self.p) / pi
-        
-            
+
+
 def limitizeLogSpiral(center, n):
     spiral = Spiral()
     I0 = center
@@ -49,21 +50,29 @@ def limitizeLogSpiral(center, n):
         k = math.log(r1 / r2) / (theta1 - theta2)
         a = r1 * math.exp(-1 * k * theta1)
         if spiral.a - a < epsilon and spiral.k - k < epsilon:
-            print(
-                'Converged at "a"', a,
-                'and', '"k"', k,
-                'in Iteration', i
-            )
+            converged = {
+                "logarithmicSpiral" : {
+                    "comment" : "Converged at expected values",
+                    "a" : a,
+                    "k" : k
+                }
+            }
+            print(prettify(converged))
             break
     else:
-        print('Did not converge at expected values of "a" and "k"')
-        print(
-            'Expected "a"', spiral.a,
-            'Limitized "a"', a,
-            'Error', spiral.a - a
-        )
-        print(
-            'Expected "k"', spiral.k,
-            'Limitized "k"', k,
-            'Error', spiral.k - k
-        )
+        errors = {
+            "logarithmicSpiral" : {
+                "comment" : "Did not converge at expected values of 'a' and 'k'",
+                "a" : {
+                    "expected" : spiral.a,
+                    "limitized" : a,
+                    "error" : spiral.a - a,
+                },
+                "k" : {
+                    "expected" : spiral.k,
+                    "limitized" : k,
+                    "error" : spiral.k - k
+                }
+            }
+        }
+        print(prettify(errors))
