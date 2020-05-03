@@ -1,8 +1,8 @@
 import math
 import sys
 
-from shapes.prettyPrint import prettify
-from shapes.point       import *
+from shapes.point import *
+from functools    import singledispatch
 
 epsilon = sys.float_info.epsilon
 lines = []
@@ -81,21 +81,25 @@ class Line:
     def length(self):
         return self.point2.distance(self.point1)
 
-    def debug(self, n):
-        print(prettify({
-            n : {
-                "Point1" : {
-                    "X" : self.point1.x,
-                    "Y" : self.point1.y
-                },
-                "Point2" : {
-                    "X" : self.point2.x,
-                    "Y" : self.point2.y
-                },
+    @singledispatch
+    def debug(self, label):
+        return {
+            "Point1" : self.point1.debug("Point1"),
+            "Point2" : self.point2.debug("Point2"),
+            "Slope" : self.slope,
+            "Constant" : self.constant
+        }
+
+    @debug.register(int)
+    def _debug(self, label):
+        return {
+            label : {
+                "Point1" : self.point1.debug("Point1"),
+                "Point2" : self.point2.debug("Point2"),
                 "Slope" : self.slope,
                 "Constant" : self.constant
             }
-        }))
+        }
 
 
 
@@ -112,18 +116,18 @@ def limitizeLine():
         satisfactionFactor = lines[i].satisfy(points[i + 2])
         angleFactor = lines[i].angle(lines[i + 1])
         if satisfactionFactor == 0 and angleFactor == 90:
-            converged = {
-                "lines" : {
+            return (
+                "lines",
+                {
                     "comment" : "Converged at expected values",
                     "Angle Factor" : angleFactor,
                     "Satisfaction Factor" : satisfactionFactor
                 }
-            }
-            print(prettify(converged))
-            break
+            )
     else:
-        errors = {
-            "lines" : {
+        return (
+            "lines",
+            {
                 "comment" : "Did not converge at expected values",
                 "Satisfaction Factor" : {
                     "expected" : 0,
@@ -136,5 +140,4 @@ def limitizeLine():
                     "error" : 90 - angleFactor
                 }
             }
-        }
-        print(prettify(errors))
+        )

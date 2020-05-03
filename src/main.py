@@ -1,4 +1,5 @@
 import solver
+import json
 import sys
 import os
 
@@ -10,6 +11,18 @@ from shapes.triangle  import *
 from shapes.point     import *
 from shapes.line      import *
 
+
+def prettify(d):
+    return json.dumps(
+        d,
+        sort_keys = False,
+        indent = 4,
+        separators = (
+            ',',
+            ': '
+        )
+    )
+
 engine = 'mpl'
 if len(sys.argv) > 1:
     if sys.argv[1] == '-manim':
@@ -18,7 +31,7 @@ if len(sys.argv) > 1:
         engine = None
     else:
         raise ValueError('Argument should be -manim or -noplot')
-    
+
 f = solver.f
 
 x1, y1, solver.f0, solver.f1 = map(
@@ -56,9 +69,13 @@ T0 = Triangle(
 triangles.append(T0)
 makeTriangles(n + 1)
 
-limitizeLine()
-limitizeTriangle()
-limitizeLogSpiral(I0, n)
+print(prettify(
+    dict([
+        limitizeLine(),
+        limitizeTriangle(),
+        limitizeLogSpiral(I0, n)
+    ])
+))
 
 I0.x, I0.y = 0, 0
 I1.x, I1.y = f(0), 0

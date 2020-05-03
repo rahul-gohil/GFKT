@@ -1,7 +1,7 @@
 import math
 
-from shapes.prettyPrint import prettify
-from solver             import f
+from functools import singledispatch
+from solver    import f
 
 points = []
 
@@ -17,13 +17,21 @@ class Point:
             pow(self.x - point.x, 2) + pow(self.y - point.y, 2)
         )
 
-    def debug(self, n):
-        print(prettify({
-            n : {
+    @singledispatch
+    def debug(self, label):
+        return {
+            "X" : self.x,
+            "Y" : self.y
+        }
+
+    @debug.register(int)
+    def _debug(self, label):
+        return {
+            label : {
                 "X" : self.x,
                 "Y" : self.y
             }
-        }))
+        }
 
 def makePoints(n):
     for i in range(1, n + 1):

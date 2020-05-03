@@ -1,4 +1,3 @@
-from shapes.prettyPrint import prettify
 from shapes.logSpiral   import Spiral as spiral
 from shapes.point       import points
 from shapes.line        import Line, lines
@@ -11,6 +10,15 @@ class Triangle:
         self.line1 = line1
         self.line2 = line2
         self.line3 = line3
+
+    def debug(self, label):
+        return {
+            label : {
+                "line1" : self.line1.debug("line1"),
+                "line2" : self.line2.debug("line2"),
+                "line3" : self.line3.debug("line3")
+            }
+        }
 
 def makeTriangles(n):
     for i in range(1, n):
@@ -29,18 +37,18 @@ def limitizeTriangle():
         c = triangles[i + 1].line3.length() /\
             triangles[i].line3.length()
         if a == b and b == c:
-            converged = {
-                "triangles" : {
+            return (
+                "triangles",
+                {
                     "comment" : "Converged to similarity between triangles",
                     "factor" : a
                 }
-            }
-            print(prettify(converged))
-            break
+            )
     else:
         expected = pow(spiral.p, 0.5)
-        errors = {
-            "triangles" : {
+        return (
+            "triangles",
+            {
                 "comment" : "Did not converge to similarity",
                 "a" : {
                     "expected" : expected,
@@ -55,5 +63,4 @@ def limitizeTriangle():
                     "limitized" : c
                 }
             }
-        }
-        print(prettify(errors))
+        )

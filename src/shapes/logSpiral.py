@@ -1,10 +1,9 @@
 import math
 import sys
 
-from shapes.prettyPrint import prettify
-from shapes.point       import points
-from shapes.line        import Line
-from solver             import f
+from shapes.point import points
+from shapes.line  import Line
+from solver       import f
 
 
 epsilon = sys.float_info.epsilon
@@ -22,9 +21,9 @@ def angle(n, slope):
     if n % 4 == 0:
         return m + s
     if n % 4 == 1 or n % 4 == 2:
-        return m + pi + s
+        return m + s + pi
     if n % 4 == 3:
-        return m + 2 * pi + s
+        return m + s + 2 * pi
 
 class Spiral:
     '''
@@ -42,7 +41,7 @@ class Spiral:
 def limitizeLogSpiral(center, n):
     spiral = Spiral()
     I0 = center
-    for i in range(2, n):
+    for i in range(n):
         r1 = points[i].distance(I0)
         r2 = points[i + 1].distance(I0)
         theta1 = angle(i, Line(I0, points[i]).slope)
@@ -50,18 +49,18 @@ def limitizeLogSpiral(center, n):
         k = math.log(r1 / r2) / (theta1 - theta2)
         a = r1 * math.exp(-1 * k * theta1)
         if spiral.a - a < epsilon and spiral.k - k < epsilon:
-            converged = {
-                "logarithmicSpiral" : {
+            return (
+                "logarithmicSpiral",
+                {
                     "comment" : "Converged at expected values",
                     "a" : a,
                     "k" : k
                 }
-            }
-            print(prettify(converged))
-            break
+            )
     else:
-        errors = {
-            "logarithmicSpiral" : {
+        return (
+            "logarithmicSpiral",
+            {
                 "comment" : "Did not converge at expected values of 'a' and 'k'",
                 "a" : {
                     "expected" : spiral.a,
@@ -74,5 +73,4 @@ def limitizeLogSpiral(center, n):
                     "error" : spiral.k - k
                 }
             }
-        }
-        print(prettify(errors))
+        )
