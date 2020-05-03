@@ -13,6 +13,7 @@ from shapes.line      import *
 
 
 def prettify(d):
+    '''Prettifies dictionary'''
     return json.dumps(
         d,
         sort_keys = False,

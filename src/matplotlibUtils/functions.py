@@ -4,6 +4,7 @@ import math
 
 from matplotlibUtils.zoomFactory import zoomFactory
 from solver import f
+
 def plotAxes(x, y):
     ax = plt.figure().add_subplot(1, 1, 1)
 
@@ -30,6 +31,11 @@ def plotLine(n, lines):
         plt.plot(X, Y, 'ro-')
 
 def plotSpiral(n, spiral):
+    '''Plots Spiral based on cartesion equation
+    x = r * cos(theta),
+    y = r * sin(theta),
+    where r  = a * phi^(theta / pi)
+    '''
     theta = np.arange(
         -4 * np.pi,
         ((n // 4) * 2 + (n % 4)) * np.pi,

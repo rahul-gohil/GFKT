@@ -1,4 +1,4 @@
-from shapes.logSpiral   import Spiral as spiral
+from shapes.logSpiral   import Spiral
 from shapes.point       import points
 from shapes.line        import Line, lines
 
@@ -29,6 +29,7 @@ def makeTriangles(n):
         ))
 
 def limitizeTriangle():
+    '''Limitizes similarity between triangles'''
     for i in range(2, len(triangles) - 1):
         a = triangles[i + 1].line1.length() /\
             triangles[i].line1.length()
@@ -41,26 +42,30 @@ def limitizeTriangle():
                 "triangles",
                 {
                     "comment" : "Converged to similarity between triangles",
-                    "factor" : a
+                    "factor" : a,
+                    "iteration" : i
                 }
             )
     else:
-        expected = pow(spiral.p, 0.5)
+        expected = pow(Spiral().p, 0.5)
         return (
             "triangles",
             {
                 "comment" : "Did not converge to similarity",
                 "a" : {
                     "expected" : expected,
-                    "limitized" : a
+                    "limitized" : a,
+                    "error" : expected - a
                 },
                 "b" : {
                     "expected" : expected,
-                    "limitized" : b
+                    "limitized" : b,
+                    "error" : expected - b
                 },
                 "c" : {
                     "expected" : expected,
-                    "limitized" : c
+                    "limitized" : c,
+                    "error" : expected - c
                 }
             }
         )

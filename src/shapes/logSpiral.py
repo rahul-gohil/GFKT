@@ -1,12 +1,12 @@
 import math
 import sys
 
-from shapes.point import points
+from shapes.point import points, Point
 from shapes.line  import Line
 from solver       import f
 
 
-epsilon = sys.float_info.epsilon
+epsilon = 1e-10
 pi = math.pi
 
 def calc_a(p):
@@ -16,6 +16,7 @@ def calc_a(p):
     return math.sqrt(y / z) * x
 
 def angle(n, slope):
+    '''Calculates theta(n)'''
     s = math.atan(slope)
     m = (n // 4) * 2 * pi
     if n % 4 == 0:
@@ -37,8 +38,25 @@ class Spiral:
         self.a = calc_a(self.p)
         self.k = math.log(self.p) / pi
 
+def r(n):
+    return pow(
+        pow(points[n].x, 2)
+        + pow(points[n].y, 2),
+        0.5
+    ).real
+
+def sine(n):
+    return math.sin(
+        angle(n, Line(Point(0, 0), points[n]).slope)
+    )
+
+def cosine(n):
+    return math.cos(
+        angle(n, Line(Point(0, 0), points[n]).slope)
+    )
 
 def limitizeLogSpiral(center, n):
+    '''Calculates limit of spiral constants "a" and "k"'''
     spiral = Spiral()
     I0 = center
     for i in range(n):
@@ -48,13 +66,14 @@ def limitizeLogSpiral(center, n):
         theta2 = angle(i + 1, Line(I0, points[i + 1]).slope)
         k = math.log(r1 / r2) / (theta1 - theta2)
         a = r1 * math.exp(-1 * k * theta1)
-        if spiral.a - a < epsilon and spiral.k - k < epsilon:
+        if abs(a - spiral.a) < epsilon and abs(k - spiral.k) < epsilon:
             return (
                 "logarithmicSpiral",
                 {
                     "comment" : "Converged at expected values",
                     "a" : a,
-                    "k" : k
+                    "k" : k,
+                    "iteration" : i
                 }
             )
     else:

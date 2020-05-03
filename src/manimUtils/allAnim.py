@@ -26,6 +26,7 @@ class Shapes(GraphScene):
     }
 
     def logSpiralSequence(self, create, fade):
+        '''Create and Fade sequence for logSpiral'''
         self.play(
             create,
             run_time = 6
@@ -62,7 +63,7 @@ class Shapes(GraphScene):
 
 
     def connectPoints(self, X, Y):
-
+        '''Similar to plt.scatter(X, Y) in mpl'''
         return VMobject().set_points_as_corners(
             list(map(
                 lambda x, y : self.coords_to_point(x, y),

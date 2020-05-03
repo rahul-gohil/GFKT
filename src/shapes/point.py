@@ -7,12 +7,12 @@ points = []
 
 class Point:
 
-
     def __init__(self, x, y):
         self.x = x
         self.y = y
 
     def distance(self, point):
+        '''Calculates distance between 2 points'''
         return math.sqrt(
             pow(self.x - point.x, 2) + pow(self.y - point.y, 2)
         )
@@ -47,6 +47,7 @@ def makePoints(n):
         points.append(p)
 
 def shiftPoints(x1, y1):
+    '''Performs shift of origin at (x1, y1)'''
     for i in range(len(points)):
         points[i].x = points[i].x - x1
         points[i].y = points[i].y - y1

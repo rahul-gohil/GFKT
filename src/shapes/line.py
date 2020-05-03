@@ -44,6 +44,9 @@ class Line:
         self.constant = self.calcConst()
 
     def satisfy(self, point):
+        '''
+        Satisfies a point to equation of line
+        '''
         if self.slope is None:
             return self.constant - point.x
         if self.slope == 0:
@@ -58,12 +61,13 @@ class Line:
         return factor
 
     def angle(self, line):
-        assert self.slope != line.slope, 'Both Lines are Parallel. Cannot Calculate Angle'
-        assert self.slope is not None or line.slope is not None, 'Slope cannot be None'
         '''
+        Calculates angle between 2 lines.
         Assume that both slopes exist.
         theta = arctan(|(m2 - m1) / (1 + m1 * m2)|)
         '''
+        assert self.slope != line.slope, 'Both Lines are Parallel. Cannot Calculate Angle'
+        assert self.slope is not None or line.slope is not None, 'Slope cannot be None'
         m1 = line.slope
         m2 = self.slope
         if abs(1 + m1 * m2) < epsilon:
@@ -112,7 +116,7 @@ def limitizeLine():
     Satisfy P(n + 2) to L(n) -> Satisfaction Factor (Should Tend to Zero)
     Get Angle between L(n) & L(n + 1) -> Angle Factor (Should Tend to 90)
     '''
-    for i in range(500):
+    for i in range(len(points) - 2):
         satisfactionFactor = lines[i].satisfy(points[i + 2])
         angleFactor = lines[i].angle(lines[i + 1])
         if satisfactionFactor == 0 and angleFactor == 90:
@@ -121,7 +125,8 @@ def limitizeLine():
                 {
                     "comment" : "Converged at expected values",
                     "Angle Factor" : angleFactor,
-                    "Satisfaction Factor" : satisfactionFactor
+                    "Satisfaction Factor" : satisfactionFactor,
+                    "iteration" : i
                 }
             )
     else:
