@@ -1,27 +1,38 @@
 import math
 
-from solver import f
+from functools import singledispatch
+from solver    import f
 
 points = []
 
 class Point:
 
-    
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        
+
     def distance(self, point):
+        '''Calculates distance between 2 points'''
         return math.sqrt(
             pow(self.x - point.x, 2) + pow(self.y - point.y, 2)
         )
-        
-    def debug(self):
-        print(
-            'X :', self.x,
-            'Y :', self.y
-        )
-        
+
+    @singledispatch
+    def debug(self, label):
+        return {
+            "X" : self.x,
+            "Y" : self.y
+        }
+
+    @debug.register(int)
+    def _debug(self, label):
+        return {
+            label : {
+                "X" : self.x,
+                "Y" : self.y
+            }
+        }
+
 def makePoints(n):
     for i in range(1, n + 1):
         m = i % 4
@@ -34,9 +45,9 @@ def makePoints(n):
         else:
             p = Point(points[i - 1].x, points[i - 1].y + f(i + 1))
         points.append(p)
-        
+
 def shiftPoints(x1, y1):
+    '''Performs shift of origin at (x1, y1)'''
     for i in range(len(points)):
         points[i].x = points[i].x - x1
         points[i].y = points[i].y - y1
-        

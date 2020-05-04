@@ -2,6 +2,7 @@ import math
 import sys
 
 from shapes.point import *
+from functools    import singledispatch
 
 epsilon = sys.float_info.epsilon
 lines = []
@@ -13,7 +14,7 @@ class Line:
     m = slope
     c = constant
     '''
-    
+
     def calcSlope(self):
         '''
         slope = (y2 - y1) / (x2 - x1)
@@ -27,7 +28,7 @@ class Line:
         if not numerator:
             return 0
         return numerator / denominator
-    
+
     def calcConst(self):
         '''
         c = y - m * x
@@ -35,14 +36,17 @@ class Line:
         if self.slope is None:
             return self.point1.x
         return self.point1.y - self.slope * self.point1.x
-    
+
     def __init__(self, point1, point2):
         self.point1 = point1
         self.point2 = point2
         self.slope = self.calcSlope()
         self.constant = self.calcConst()
-        
+
     def satisfy(self, point):
+        '''
+        Satisfies a point to equation of line
+        '''
         if self.slope is None:
             return self.constant - point.x
         if self.slope == 0:
@@ -55,14 +59,15 @@ class Line:
             '''
             return 0
         return factor
-        
+
     def angle(self, line):
-        assert self.slope != line.slope, 'Both Lines are Parallel. Cannot Calculate Angle'
-        assert self.slope is not None or line.slope is not None, 'Slope cannot be None'
         '''
+        Calculates angle between 2 lines.
         Assume that both slopes exist.
         theta = arctan(|(m2 - m1) / (1 + m1 * m2)|)
         '''
+        assert self.slope != line.slope, 'Both Lines are Parallel. Cannot Calculate Angle'
+        assert self.slope is not None or line.slope is not None, 'Slope cannot be None'
         m1 = line.slope
         m2 = self.slope
         if abs(1 + m1 * m2) < epsilon:
@@ -76,52 +81,68 @@ class Line:
             )
         ))
         return theta
-        
+
     def length(self):
         return self.point2.distance(self.point1)
-        
-    def debug(self):
-        print(
-            'Point1.x :', round(self.point1.x, 5),
-            'Point1.y :', round(self.point1.y, 5),
-            'Point2.x :', round(self.point2.x, 5),
-            'Point2.y :', round(self.point2.y, 5),
-            'Slope :', round(self.slope, 5),
-            'Constant :', round(self.constant, 5)
-        )
-        
+
+    @singledispatch
+    def debug(self, label):
+        return {
+            "Point1" : self.point1.debug("Point1"),
+            "Point2" : self.point2.debug("Point2"),
+            "Slope" : self.slope,
+            "Constant" : self.constant
+        }
+
+    @debug.register(int)
+    def _debug(self, label):
+        return {
+            label : {
+                "Point1" : self.point1.debug("Point1"),
+                "Point2" : self.point2.debug("Point2"),
+                "Slope" : self.slope,
+                "Constant" : self.constant
+            }
+        }
+
 
 
 def makeLines(n):
     for i in range(2, n):
         lines.append(Line(lines[i - 2].point2, points[i]))
-        
+
 def limitizeLine():
     '''
     Satisfy P(n + 2) to L(n) -> Satisfaction Factor (Should Tend to Zero)
     Get Angle between L(n) & L(n + 1) -> Angle Factor (Should Tend to 90)
     '''
-    for i in range(500):
+    for i in range(len(points) - 2):
         satisfactionFactor = lines[i].satisfy(points[i + 2])
         angleFactor = lines[i].angle(lines[i + 1])
         if satisfactionFactor == 0 and angleFactor == 90:
-            print(
-                'Converged at Satisfaction Factor',
-                satisfactionFactor,
-                'and Angle Factor',
-                angleFactor,
-                'in Iteration', i
+            return (
+                "lines",
+                {
+                    "comment" : "Converged at expected values",
+                    "Angle Factor" : angleFactor,
+                    "Satisfaction Factor" : satisfactionFactor,
+                    "iteration" : i
+                }
             )
-            break
     else:
-        print('Did not converge to expected values of SF and AF')
-        print(
-            'Expected SF', 0,
-            'Limitized SF', satisfactionFactor,
-            'Error', 0 - satisfactionFactor
-        )
-        print(
-            'Expected AF', 90,
-            'Limitized AF', angleFactor,
-            'Error', 90 - angleFactor
+        return (
+            "lines",
+            {
+                "comment" : "Did not converge at expected values",
+                "Satisfaction Factor" : {
+                    "expected" : 0,
+                    "limitized" : satisfactionFactor,
+                    "error" : satisfactionFactor
+                },
+                "Angle Factor" : {
+                    "expected" : 90,
+                    "limitized" : angleFactor,
+                    "error" : 90 - angleFactor
+                }
+            }
         )

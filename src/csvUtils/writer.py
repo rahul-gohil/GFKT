@@ -3,6 +3,7 @@ from os import path, mkdir
 from csvUtils.functions import *
 
 def writeToCsv(points, lines, triangles, spiral):
+    '''Creates src/data to store csv files and writes'''
     try:
         mkdir(path.join(
             path.abspath('.'),
