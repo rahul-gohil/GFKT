@@ -3,8 +3,8 @@ import json
 import sys
 import os
 
-from csvUtils.writer         import writeToCsv
-from mpl.plotter import plot
+from csvUtils.writer import writeToCsv
+from mpl.plotter     import plot
 
 from shapes.logSpiral import *
 from shapes.triangle  import *
