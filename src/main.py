@@ -3,14 +3,13 @@ import json
 import sys
 import os
 
-from matplotlibUtils.plotter import plot
 from csvUtils.writer         import writeToCsv
+from mpl.plotter import plot
 
 from shapes.logSpiral import *
 from shapes.triangle  import *
 from shapes.point     import *
 from shapes.line      import *
-
 
 def prettify(d):
     '''Prettifies dictionary'''
@@ -93,5 +92,5 @@ if engine is not None:
             Spiral()
         )
         os.system(
-            f'manim ./manimUtils/allAnim.py {n1} Shapes -pl'
+            f'manim ./manim/allAnim.py {n1} Shapes -pl'
         )

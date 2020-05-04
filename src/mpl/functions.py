@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
-from matplotlibUtils.zoomFactory import zoomFactory
+from mpl.zoomFactory import zoomFactory
 from solver import f
 
 def plotAxes(x, y):

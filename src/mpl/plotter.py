@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 
-from matplotlibUtils.functions import *
+from mpl.functions import *
 from shapes.logSpiral    import Spiral
 from shapes.point        import points
 from shapes.line         import lines
@@ -21,4 +21,3 @@ def plot(n, init):
     plotSpiral(n, Spiral())
     plt.scatter(X, Y)
     plt.show()
-    
