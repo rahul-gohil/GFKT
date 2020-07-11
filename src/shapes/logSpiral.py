@@ -1,20 +1,22 @@
+import solver
 import math
 import sys
 
 from shapes.point import points, Point
 from shapes.line  import Line
-from solver       import f
 
 
-epsilon = 1e-10
+a = solver.a
+f = solver.f
+epsilon = 1e-2
 pi = math.pi
 
-def calc_a(p):
-    x = pow(p, -1 * math.atan(math.sqrt(p)) / pi)
-    y = (p * pow(f(1), 2) + pow(f(0), 2))
-    z = p * math.sqrt(5)
-    return math.sqrt(y / z) * x
-
+def calc_t(p):
+    x = 1 / pow(p, (2 * math.atan(pow(p, 1 / a))) / (a * pi))
+    y = 1 / pow(1 + pow(p, 2 / a), 0.5)
+    z = pow((p * (p * pow(f(1), a) + pow(f(0), a))) / pow(5, 0.5), 1 / a)
+    return  z * y * x
+    
 def angle(n, slope):
     '''Calculates theta(n)'''
     s = math.atan(slope)
@@ -35,8 +37,8 @@ class Spiral:
 
     def __init__(self):
         self.p = (1 + math.sqrt(5)) / 2
-        self.a = calc_a(self.p)
-        self.k = math.log(self.p) / pi
+        self.t = calc_t(self.p)
+        self.k = math.log(pow(self.p, 2 / solver.a)) / pi
 
 def r(n):
     return pow(
@@ -65,13 +67,13 @@ def limitizeLogSpiral(center, n):
         theta1 = angle(i, Line(I0, points[i]).slope)
         theta2 = angle(i + 1, Line(I0, points[i + 1]).slope)
         k = math.log(r1 / r2) / (theta1 - theta2)
-        a = r1 * math.exp(-1 * k * theta1)
-        if abs(a - spiral.a) < epsilon and abs(k - spiral.k) < epsilon:
+        t = r1 * math.exp(-1 * k * theta1)
+        if abs(t - spiral.t) < epsilon and abs(k - spiral.k) < epsilon:
             return (
                 "logarithmicSpiral",
                 {
                     "comment" : "Converged at expected values",
-                    "a" : a,
+                    "t" : t,
                     "k" : k,
                     "iteration" : i
                 }
@@ -80,11 +82,11 @@ def limitizeLogSpiral(center, n):
         return (
             "logarithmicSpiral",
             {
-                "comment" : "Did not converge at expected values of 'a' and 'k'",
-                "a" : {
-                    "expected" : spiral.a,
-                    "limitized" : a,
-                    "error" : spiral.a - a,
+                "comment" : "Did not converge at expected values of 't' and 'k'",
+                "t" : {
+                    "expected" : spiral.t,
+                    "limitized" : t,
+                    "error" : spiral.t - t,
                 },
                 "k" : {
                     "expected" : spiral.k,

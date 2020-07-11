@@ -34,16 +34,20 @@ if len(sys.argv) > 1:
 
 f = solver.f
 
-x1, y1, solver.f0, solver.f1 = map(
+x1, y1, solver.a = map(
     float,
-    input("Enter x1, y1, f(0) & f(1)\t").split()
+    input("Enter x1, y1 & a\t").split()
 )
 
-assert 0 <= f(0),   "f(0) has to be positive"
-assert 0 <= f(1),   "f(1) has to be positive"
-assert x1 < f(0),   "f(0) has to be greater than x1"
-assert y1 < f(1),   "f(1) has to be greater than y1"
-assert f(0) < f(1), "f(1) has to be greater than f(0)"
+solver.init = list(map(
+    int,
+    input('Enter initial values\t').split()
+))
+
+assert len(solver.init) == 2 * solver.b, f"Length has to be {2 * b}"
+assert 0 < solver.a, "a has to be greater than 0"
+assert 0 < solver.b, "b has to be greater than 0"
+
 
 n = int(input("Enter the number of points\t"))
 

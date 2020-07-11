@@ -1,9 +1,12 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import solver
 import math
 
 from mpl.zoomFactory import zoomFactory
-from solver import f
+
+
+f = solver.f
 
 def plotAxes(x, y):
     ax = plt.figure().add_subplot(1, 1, 1)
@@ -34,24 +37,24 @@ def plotSpiral(n, spiral):
     '''Plots Spiral based on cartesion equation
     x = r * cos(theta),
     y = r * sin(theta),
-    where r  = a * phi^(theta / pi)
+    where r  = t * phi^(theta / pi)
     '''
     theta = np.arange(
         -4 * np.pi,
-        ((n // 4) * 2 + (n % 4)) * np.pi,
-        0.01
+        n * np.pi / 2,
+        0.1
     )
     X = list(map(
         lambda x :
-            spiral.a
-            * pow(spiral.p, x / np.pi)
+            spiral.t
+            * pow(spiral.p, (2 * x) / (solver.a * np.pi))
             * np.cos(x),
         theta
     ))
     Y = list(map(
         lambda y :
-            spiral.a
-            * pow(spiral.p, y / np.pi)
+            spiral.t
+            * pow(spiral.p, (2 * y) / (solver.a * np.pi))
             * np.sin(y),
         theta
     ))
