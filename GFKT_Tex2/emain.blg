@@ -1,0 +1,58 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: emain.aux
+The style file: elsarticle-num-names.bst
+Database file #1: sample.bib.bib
+I was expecting a `,' or a `}'---line 17 of file sample.bib.bib
+ :  
+ :  pages = "145–152",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "KT-wiki"
+Warning--I didn't find a database entry for "LS-wiki"
+Warning--empty author in paper2
+Warning--missing publisher in book1
+Warning--empty year in book1; set to ????
+Warning--empty journal in rahulgohil_2020
+You've used 5 entries,
+            2793 wiz_defined-function locations,
+            632 strings with 5569 characters,
+and the built_in function-call counts, 1992 in all, are:
+= -- 124
+> -- 35
+< -- 4
++ -- 22
+- -- 10
+* -- 218
+:= -- 285
+add.period$ -- 5
+call.type$ -- 5
+change.case$ -- 21
+chr.to.int$ -- 5
+cite$ -- 11
+duplicate$ -- 170
+empty$ -- 172
+format.name$ -- 18
+if$ -- 356
+int.to.chr$ -- 1
+int.to.str$ -- 6
+missing$ -- 38
+newline$ -- 25
+num.names$ -- 12
+pop$ -- 68
+preamble$ -- 1
+purify$ -- 23
+quote$ -- 0
+skip$ -- 55
+stack$ -- 0
+substring$ -- 91
+swap$ -- 111
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 28
+warning$ -- 4
+while$ -- 9
+width$ -- 0
+write$ -- 59
+(There was 1 error message)

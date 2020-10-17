@@ -1,0 +1,38 @@
+\begin{thebibliography}{5}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\providecommand{\urlprefix}{URL }
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\url{#1}\endgroup}\fi
+\providecommand{\bibinfo}[2]{#2}
+
+\bibitem[{Anatriello and Vincenzi(2016)}]{paper1}
+\bibinfo{author}{G.~Anatriello}, \bibinfo{author}{G.~Vincenzi},
+  \bibinfo{title}{Logarithmic spirals and continue triangles},
+  \bibinfo{journal}{Journal of Computational and Applied Mathematics}
+  \bibinfo{volume}{296} (\bibinfo{year}{2016}) \bibinfo{pages}{127 -- 137},
+  ISSN \bibinfo{issn}{0377-0427},
+  \doi{\bibinfo{doi}{10.1016/j.cam.2015.09.004}},
+  \urlprefix\url{http://www.sciencedirect.com/science/article/pii/S0377042715004562}.
+
+\bibitem[{pap(????)}]{paper2}
+\bibinfo{title}{Limit of ratio of consecutive terms for general order-k linear
+  homogeneous recurrences with constant coefficients}, \bibinfo{journal}{Chaos
+  Solitons Fractals} .
+
+\bibitem[{Livio(????)}]{book1}
+\bibinfo{author}{M.~Livio}, \bibinfo{title}{The Golden Ratio: The Story of Phi,
+  The World's Most Astonishing Number}, ????
+
+\bibitem[{Gohil(2020)}]{rahulgohil_2020}
+\bibinfo{author}{R.~Gohil}, \bibinfo{title}{rahul-gohil/GFKT: GFKT@1.0.4}
+  \doi{\bibinfo{doi}{10.5281/zenodo.3784306}}.
+
+\bibitem[{Meisner(2020)}]{Powerp}
+\bibinfo{author}{G.~Meisner}, \bibinfo{title}{{Powers of Phi}},
+  \bibinfo{howpublished}{\url{https://www.goldennumber.net/powers-of-phi/}},
+  \bibinfo{note}{[Online; accessed 7-May-2020]}, \bibinfo{year}{2020}.
+
+\end{thebibliography}
